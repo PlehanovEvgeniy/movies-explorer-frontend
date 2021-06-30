@@ -94,14 +94,14 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 767px) {
     .techs__content {
-        max-width: 320px;
+        max-width: 767px;
     }
 
     .techs__header-text {
         margin: 70px 18px 0 18px;
-        width: 284px;
+        max-width: 767px;
     }
 
     .techs__title {
