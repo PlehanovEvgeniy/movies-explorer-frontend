@@ -63,14 +63,14 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 700px) {
     .search-form {
-        max-width: 292px;
+        max-width: 700px;
         width: calc(100% - 14px*2);
     }
 
     .search-form__container {
-        max-width: 292px;
+        max-width: 700px;
         margin: 0;
         padding: 84px 0 13px 0;
     }

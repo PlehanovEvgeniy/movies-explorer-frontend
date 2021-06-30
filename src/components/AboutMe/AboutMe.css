@@ -112,13 +112,13 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 550px) {
     .about-me {
         padding-top: 70px;
     }
 
     .about-me__header {
-        max-width: 292px;
+        max-width: 550px;
         width: calc(100% - 14px * 2);
         font-size: 18px;
         padding-bottom: 28px;
