@@ -75,12 +75,13 @@
     }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
     .movies-card {
-        max-width: 300px;
+        max-width: 364px;
+        justify-content: center;
     }
 
     .movies-card__image {
-        width: 300px;
+        width: 364px;
     }
 }

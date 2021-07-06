@@ -1,7 +1,6 @@
 import './Header.css';
 import { NavLink, Switch, Route } from 'react-router-dom';
 import logo from '../../images/logo.svg';
-import account from '../../images/account.svg'
 
 const Header = () => {
     return (
@@ -58,10 +57,12 @@ const Header = () => {
                                 Сохранённые фильмы
                             </NavLink>
                         </div>
-                        <NavLink to='/profile' className="header__account">
-                            <img src={account} alt='Логотип'></img>
-                        </NavLink>
                     </div>
+                    <div className="header__account">
+                        <NavLink to="/profile" className="header__account-name">Аккаунт</NavLink>
+                        <div className="header__account-logo"></div>
+                    </div>
+                    <button type="button" className="header__burger-menu"></button>
                 </header>
             </Route>
 
@@ -80,10 +81,12 @@ const Header = () => {
                                 Сохранённые фильмы
                             </NavLink>
                         </div>
-                        <NavLink to='/profile' className="header__account">
-                            <img src={account} alt='Логотип'></img>
-                        </NavLink>
                     </div>
+                    <div className="header__account">
+                        <NavLink to="/profile" className="header__account-name">Аккаунт</NavLink>
+                        <div className="header__account-logo"></div>
+                    </div>
+                    <button type="button" className="header__burger-menu"></button>
                 </header>
             </Route>
 
@@ -102,10 +105,12 @@ const Header = () => {
                                 Сохранённые фильмы
                             </NavLink>
                         </div>
-                        <NavLink to='/profile' className="header__account">
-                            <img src={account} alt='Логотип'></img>
-                        </NavLink>
                     </div>
+                    <div className="header__account">
+                        <NavLink to="/profile" className="header__account-name">Аккаунт</NavLink>
+                        <div className="header__account-logo"></div>
+                    </div>
+                    <button type="button" className="header__burger-menu"></button>
                 </header>
             </Route>
         </Switch>

@@ -10,6 +10,7 @@ import Footer from "../Footer/Footer";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFound from "../NotFound/NotFound";
+import Navigation from "../Navigation/Navigation";
 
 function App() {
   return (
@@ -47,12 +48,15 @@ function App() {
         <Route path="/signin">
           <Header />
           <Login />
+        </Route >
+
+        <Route path="/navigation">
+          <Navigation />
         </Route>
 
         <Route path="*">
           <NotFound />
         </Route>
-
       </Switch>
     </div>
   );

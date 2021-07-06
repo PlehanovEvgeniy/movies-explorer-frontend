@@ -67,7 +67,7 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 480px) {
   .register__container {
     max-width: 260px;
   }

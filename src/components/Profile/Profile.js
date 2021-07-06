@@ -1,4 +1,5 @@
 import './Profile.css'
+import Navigation from '../Navigation/Navigation';
 
 const Profile = () => {
     return (
@@ -22,9 +23,9 @@ const Profile = () => {
                     <button type="submit" className="profile__info-button">Редактировать</button>
                     <button type="button" className="profile__info-button">Выйти из аккаунта</button>
                 </div>
-            </form>
-            
+            </form>            
         </div>
+        <Navigation />
     </section>
     )
 }
