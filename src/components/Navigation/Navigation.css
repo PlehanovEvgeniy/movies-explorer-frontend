@@ -1,0 +1,106 @@
+.navigation {
+    display: none;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fafafa;
+    padding: 144px 0 48px 0;
+    box-sizing: border-box;
+}
+  
+.navigation__active {
+    display: flex;
+}
+  
+.navigation__close-button {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    right: 20px;
+    top: 20px;
+    height: 22px;
+    width: 22px;
+    background-image: url(../../images/close-button-burger.svg);
+    background-color: #fafafa;
+    border: none;
+    background-position: center;
+    cursor: pointer;
+    opacity: 0.8;
+}
+  
+.navigation__links {
+    list-style: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+  
+.navigation__link {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+}
+
+.navigation__link:hover {
+    opacity: 0.8;
+}
+  
+.navigation__link_active {
+    border-bottom: 2px solid #000;
+    padding-bottom: 7px;
+}
+  
+.navigation__item {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+    margin-bottom: 24px;
+}
+  
+.navigation__item:last-child {
+    margin-bottom: 0;
+}
+  
+.navigation__account {
+    display:flex;
+    align-items: center;
+    border-radius: 40rem;
+    cursor: pointer;
+    box-shadow: 4px 4px 15px 0px rgba(34, 60, 80, 0.2);
+    width: 100px;
+    height: 32px;
+    margin: 620px auto 0 auto;
+    padding: 0;
+}
+  
+.navigation__account-name {
+    text-decoration: none;
+    color: #000;
+    font-size: 13px;
+    line-height: 12px;
+    font-weight: 500;
+    margin: 0 7px 0 11px;
+}
+  
+.navigation__account-logo {
+    background: url(../../images/account-img.svg) no-repeat center;
+    background-color: #f4f4f4;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+.navigation__account-logo:hover {
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 600px) {
+    .navigation__account {
+        margin: 444px auto 0 auto;
+    }
+}
