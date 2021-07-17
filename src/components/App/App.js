@@ -127,8 +127,11 @@ function App() {
             "недоступен. Подождите немного и попробуйте ещё раз");
         console.log(err)
       });
-
     getSavedMovies();
+
+
+    const sAllMovies = localStorage.getItem('searchedMovies');
+    setSearchedMovies(sAllMovies ? JSON.parse(sAllMovies) : []);
   }, []);
 
   // Проверяем токен

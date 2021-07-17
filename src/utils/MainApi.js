@@ -92,7 +92,6 @@ export class MainApi {
             option.body = JSON.stringify(body);
         }
 
-        console.log(`${this._url}${url}`, option)
         return fetch(`${this._url}${url}`, option)
             .then((res) => {
                 if (res.ok) {
