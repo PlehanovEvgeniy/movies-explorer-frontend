@@ -39,7 +39,7 @@
     border: none;
 }
 
-.movies-card__button:hover {    
+.movies-card__button:hover {
     cursor: pointer;
     opacity: 0.8;
 }
@@ -53,14 +53,14 @@
 }
 
 .movies-card__button_type_saved {
-    background-image: url(../../images/button__saved.svg);
+    background-image: url(../../images/button__saved.png);
     width: 30px;
     height: 30px;
     border-radius: 50%;
     border: none;
 }
 
-.movies-card__button_type_delete:hover {    
+.movies-card__button_type_delete:hover {
     cursor: pointer;
     opacity: 0.8;
 }

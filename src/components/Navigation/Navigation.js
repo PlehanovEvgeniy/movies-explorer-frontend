@@ -2,10 +2,10 @@ import React from "react";
 import './Navigation.css';
 import { NavLink } from "react-router-dom";
 
-export default function Navigation() {
+const Navigation = ({isOpen, onClose}) => {
   return (
-    <div className="navigation">
-        <button type="button" className="navigation__close-button"></button>
+    <div className={`navigation ${isOpen  ? 'navigation__active' : ' '}`}>
+        <button type="button" className="navigation__close-button" onClick={onClose}></button>
         <nav className="navigation__container">
             <ul className="navigation__links">
                 <li className="navigation__item">
@@ -26,3 +26,5 @@ export default function Navigation() {
     </div>
   );
 }
+
+export default Navigation;

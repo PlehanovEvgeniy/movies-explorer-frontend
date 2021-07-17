@@ -1,7 +1,32 @@
 import './Profile.css'
 import Navigation from '../Navigation/Navigation';
+import {useContext, useEffect, useState} from "react";
+import ValidationForm from "../../hooks/validationForm";
+import { CurrentUserContext } from "../../context/currentUserContext";
 
-const Profile = () => {
+const Profile = ({onLogout, onEditProfile}) => {
+    const currentUser = useContext(CurrentUserContext);
+    const { values, errors, isValid, handleChange, resetForm } = ValidationForm({ email: currentUser.email, name: currentUser.name });
+
+    const [isValuesNotMatched, setIsValuesNotMatched] = useState(false);
+
+    function checkValues() {
+        if (currentUser.email === values.email && currentUser.name === values.name) {
+            setIsValuesNotMatched(false);
+        } else {
+            setIsValuesNotMatched(true);
+        }
+    }
+
+    useEffect(() => {
+        checkValues();
+    }, [handleChange]);
+
+    const handleOnSubmit = (e) => {
+        e.preventDefault();
+        onEditProfile(values.name, values.email);
+    }
+
     return (
     <section className='profile'>
         <div className='profile__container'>
@@ -10,22 +35,50 @@ const Profile = () => {
                 <div className='profile__info-fields'>
                     <div className='profile__info-container'>
                         <p className="profile__info-label">Имя</p>
-                        <input className="profile__info-field" placeholder="Введите имя" />
+                        <input
+                            name="name"
+                            type="text"
+                            required
+                            value={values.name || ""}
+                            onChange={handleChange}
+                            className="profile__info-field"
+                            placeholder="Введите имя" />
                     </div>
+                    <span className="profile__info-error">{errors.name}</span>
 
                     <div className="profile__info-container">
                         <p className="profile__info-label">E-mail</p>
-                        <input className="profile__info-field" placeholder="Укажите почту" />
+                        <input
+                            name="email"
+                            type="email"
+                            required
+                            value={values.email || ""}
+                            onChange={handleChange}
+                            className="profile__info-field"
+                            placeholder="Укажите почту" />
                     </div>
+                    <span className="profile__info-error">{errors.email}</span>
                 </div>
 
                 <div className="profile__info-buttons">
-                    <button type="submit" className="profile__info-button">Редактировать</button>
-                    <button type="button" className="profile__info-button">Выйти из аккаунта</button>
+                    <button
+                        type="submit"
+                        className={
+                            isValid && isValuesNotMatched
+                                ? "profile__info-button"
+                                : "profile__info-button profile__info-button_disable"
+                        }
+                        onClick={handleOnSubmit}
+                        disabled={!isValid && !isValuesNotMatched}
+                    >
+                        {isValid && isValuesNotMatched
+                            ? "Сохранить"
+                            : "Редактировать"}
+                    </button>
+                    <button type="button" className="profile__info-button" onClick={onLogout}>Выйти из аккаунта</button>
                 </div>
-            </form>            
+            </form>
         </div>
-        <Navigation />
     </section>
     )
 }
