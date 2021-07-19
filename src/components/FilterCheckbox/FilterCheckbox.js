@@ -1,5 +1,4 @@
 import './FilterCheckbox.css'
-import {useState} from "react";
 
 const FilterCheckbox = ({checked, onChange}) => {
   const handleChange = () => {

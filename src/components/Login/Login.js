@@ -2,9 +2,10 @@ import './Login.css'
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import ValidationForm from "../../hooks/validationForm";
+import Preloader from "../Preloader/Preloader";
 
 
-const Login = ({onLogin}) => {
+const Login = ({onLogin, isLoading, errorResponse}) => {
     const { values, errors, isValid, handleChange, resetForm } = ValidationForm({});
 
     const handleSubmit = (e) => {
@@ -21,6 +22,8 @@ const Login = ({onLogin}) => {
                 </NavLink>
                 <h1 className="login__header_text">Добро пожаловать!</h1>
             </div>
+
+            {isLoading === true ? <Preloader/> :
             <div className="login__container">
                 <form className=" login__form" onSubmit={handleSubmit}>
                     <p className="login__form-label">
@@ -48,7 +51,7 @@ const Login = ({onLogin}) => {
                             required/>
                         <span className="login__form-error">{errors.password}</span>
                     </p>
-
+                    <span className="login__form-error">{errorResponse}</span>
                     <button
                         type="submit"
                         className={`login__form-button ${
@@ -61,6 +64,7 @@ const Login = ({onLogin}) => {
                     <Link to="/signup" className="login__info-link">Регистрация</Link>
                 </div>
             </div>
+            }
         </section>
     );
 }

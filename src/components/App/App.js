@@ -36,97 +36,145 @@ function App() {
 
   const [searchResponse, setSearchResponse] = useState("");
   const [savedSearchResponse, setSavedSearchResponse] = useState("");
+  const [errorResponse, setErrorResponse] = useState('')
 
   const history = useHistory();
   const location = useLocation().pathname;
 
   //проверяем токен
   const tokenCheck = () => {
-    if (localStorage.getItem('jwt')) {
-      const token = localStorage.getItem('jwt');
-      if (token) {
-        auth.getContent(token)
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      auth.getContent(token)
           .then((res) => {
             if (res) {
               setCurrentUser(res);
             }
-
             setLoggedIn(true);
-            history.push("/movies");
+            history.push(location);
           })
-      }
     }
   }
 
   const handleLogin = (email, password) => {
+    setIsLoading(true);
     auth.signin(password, email)
       .then((res) => {
         if (res) {
-          setLoggedIn(true);
-          setCurrentUser(res.data);
+          setTimeout(() => {
+            setIsLoading(false);
+            setLoggedIn(true);
+            setCurrentUser(res.data);
 
-          localStorage.setItem('jwt', res.token);
-          history.push('/movies');
-        }
-      })
-  }
-
-  const handleRegister = (email, password, name) => {
-    auth.signup(password, email, name)
-      .then((res) => {
-        if (res) {
-          history.push('/signin');
-        }
-      })
-  }
-
-  const handleUpdateUser = (name, email) => {
-    mainApi.setUserInfo(name, email)
-      .then((res) => {
-        if (res) {
-          setCurrentUser({
-            ...currentUser,
-            name: res.name,
-            email: res.email,
-          });
+            localStorage.setItem('jwt', res.token);
+            history.push('/movies');
+          }, 500)
         }
       })
       .catch((err) => {
+        setIsLoading(false);
+        if (err === "Ошибка 400") {
+          return setErrorResponse("Не верно заполнено одно из полей");
+        }
+        if (err === "Ошибка 401") {
+          return setErrorResponse("Неправильные почта или пароль");
+        }
+        if (err === "Ошибка 500") {
+          return setErrorResponse("Что-то пошло не так. Попробуйте позже");
+        }
         console.log(err);
       });
   }
 
+  const handleRegister = (email, password, name) => {
+    setIsLoading(true);
+    auth.signup(password, email, name)
+      .then((res) => {
+        if (res) {
+          setTimeout(() => {
+            setIsLoading(false);
+            handleLogin(email, password);
+          }, 500)
+        }
+      })
+        .catch((err) => {
+          setIsLoading(false);
+          if (err === "Ошибка 400") {
+            return setErrorResponse("Не верно заполнено одно из полей");
+          }
+          if (err === "Ошибка 409") {
+            return setErrorResponse("Пользователь с таким имейлом уже существует");
+          }
+          if (err === "Ошибка 500") {
+            return setErrorResponse("Что-то пошло не так. Попробуйте позже");
+          }
+          console.log(err);
+        });
+  }
+
+  const handleUpdateUser = (name, email) => {
+    setIsLoading(true);
+    mainApi.setUserInfo(name, email)
+      .then((res) => {
+        if (res) {
+          setTimeout(() => {
+            setIsLoading(false);
+            setCurrentUser({
+              ...currentUser,
+              name: res.name,
+              email: res.email,
+            });
+          }, 500)
+        }
+      })
+        .catch((err) => {
+          setIsLoading(false);
+          if (err === "Ошибка 500") {
+            return setErrorResponse("Что-то пошло не так. Попробуйте позже");
+          }
+          console.log(err);
+        });
+  }
+
   const handleLogout = () => {
     localStorage.removeItem('jwt');
+    setLoggedIn(false);
     history.push('/');
   }
 
   // Загружаем фильмы, сохраняем локально
   useEffect(() => {
-    moviesApi
-      .getFilms()
-      .then((res) => {
-        setAllMovies(res.map((item) => {
-          return {
-            country: item.country,
-            director: item.director,
-            duration: item.duration,
-            year: item.year,
-            description: item.description,
-            image: `https://api.nomoreparties.co${item.image.url}`,
-            trailer: item.trailerLink,
-            thumbnail: `https://api.nomoreparties.co${item.image.formats.thumbnail.url}`,
-            movieId: item.id,
-            nameRU: item.nameRU,
-            nameEN: item.nameEN,
-          }
-        }));
-      })
-      .catch((err) => {
-        setSearchResponse("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер " +
-            "недоступен. Подождите немного и попробуйте ещё раз");
-        console.log(err)
-      });
+    if (localStorage.getItem("allMovies")) {
+      setAllMovies(JSON.parse(localStorage.getItem("allMovies")));
+    } else {
+      moviesApi
+          .getFilms()
+          .then((res) => {
+            const movies = res.map((item) => {
+              return {
+                country: item.country,
+                director: item.director,
+                duration: item.duration,
+                year: item.year,
+                description: item.description,
+                image: `https://api.nomoreparties.co${item.image.url}`,
+                trailer: item.trailerLink,
+                thumbnail: `https://api.nomoreparties.co${item.image.formats.thumbnail.url}`,
+                movieId: item.id,
+                nameRU: item.nameRU,
+                nameEN: item.nameEN,
+              };
+            });
+
+            localStorage.setItem("allMovies", JSON.stringify(movies));
+            setAllMovies(movies);
+          })
+          .catch((err) => {
+            setSearchResponse("Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер " +
+                "недоступен. Подождите немного и попробуйте ещё раз");
+            console.log(err)
+          });
+    }
     getSavedMovies();
 
 
@@ -162,6 +210,7 @@ function App() {
       movie.nameEN,
       movie.movieId)
       .then((res) => {
+        setSearchedSavedMovies([]);
         setSavedMovies([...savedMovies, res]);
       })
       .catch((err) => console.log(err));
@@ -261,11 +310,16 @@ function App() {
     return !searchedSavedMovies.length ? savedMovies : searchedSavedMovies;
   }
 
+  const isRenderGlobalComponents = () => {
+    return location === "/movies" || location === "/saved-movies" || location === "/" || location === "/profile";
+  }
+
   return (
-      <>
         <CurrentUserContext.Provider value={currentUser}>
           <div className="page">
-            <Header/>
+            { isRenderGlobalComponents() === true && <Header
+                loggedIn={loggedIn}
+            /> }
             <Switch>
               <Route exact path="/">
                 <Main/>
@@ -307,24 +361,31 @@ function App() {
                   onEditProfile={handleUpdateUser}
                   onLogout={handleLogout}
                   component={Profile}
+                  isLoading={isLoading}
+                  errorResponse={errorResponse}
               />
 
               <Route path="/signup">
-                <Register onRegister={handleRegister}/>
+                <Register onRegister={handleRegister}
+                          isLoading={isLoading}
+                          errorResponse={errorResponse}
+                />
               </Route>
 
               <Route path="/signin">
-                <Login onLogin={handleLogin}/>
+                <Login onLogin={handleLogin}
+                       isLoading={isLoading}
+                       errorResponse={errorResponse}
+                />
               </Route>
 
               <Route path="*">
                 <NotFound/>
               </Route>
             </Switch>
-            <Footer/>
+            { isRenderGlobalComponents() === true && <Footer/> }
           </div>
         </CurrentUserContext.Provider>
-      </>
   );
 }
 

@@ -22,7 +22,6 @@ class Auth {
             })
         })
         .then(res => this._checkResponse(res))
-        .catch((err) => console.log(err));
     }
 
     signup(password, email, name) {
@@ -38,7 +37,6 @@ class Auth {
             })
         })
         .then(res => this._checkResponse(res))
-        .catch((err) => console.log(err));
     };
 
     getContent(token) {
@@ -50,7 +48,6 @@ class Auth {
             }
         })
         .then(res => this._checkResponse(res))
-        .catch((err) => console.log(err));
     }
 }
 

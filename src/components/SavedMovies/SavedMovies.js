@@ -1,6 +1,5 @@
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import Navigation from '../Navigation/Navigation';
 import Preloader from "../Preloader/Preloader";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 

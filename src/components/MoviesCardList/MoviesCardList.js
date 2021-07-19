@@ -66,9 +66,9 @@ const MoviesCardList = ({movies, isFavorite, onBookmarks, bookmarksStatus}) => {
   return(
     <section className='movies-card-list'>
       <div className='movies-card-list__container'>
-        {renderMovies.map((movie, index) => {
+        {renderMovies.map((movie) => {
           return <MoviesCard
-              key={index}
+              key={movie.movieId}
               movie={movie}
               isFavorite={isFavorite}
               onBookmarks={onBookmarks}

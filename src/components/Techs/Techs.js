@@ -2,7 +2,7 @@ import './Techs.css'
 
 const Techs = () => {
     return (
-        <section className='techs'>
+        <section className='techs' id="technology">
             <div className='techs__content'>
                 <h3 className='techs__header-text'>Технологии</h3>
                 <h2 className='techs__title'>7 технологий</h2>
@@ -17,7 +17,7 @@ const Techs = () => {
                 <div className='techs__stacks-element'>Git</div>
                 <div className='techs__stacks-element'>Express.js</div>
                 <div className='techs__stacks-element'>mongoDB</div>
-                </div>    
+                </div>
             </div>
         </section>
     )
