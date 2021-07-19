@@ -1,32 +1,31 @@
-import { Route, Switch } from 'react-router-dom';
 import './MoviesCard.css';
-import Poster from '../../images/poster.jpg';
 
-const MoviesCard = () => {
+
+const MoviesCard = ({movie, isFavorite, onBookmarks, bookmarksStatus}) => {
+  const isBookmark = bookmarksStatus(movie);
+
+    // Создаём переменную, которую после зададим в `className` для кнопки удаления
+    const movieBtnClassName = isBookmark ? isFavorite ? 'movies-card__button_type_delete' : 'movies-card__button_type_saved' : 'movies-card__button';
+
+
+
+    const duration = `${Math.round(movie.duration / 60)}ч ${movie.duration % 60}м`;
+
+    const handleBookmarkClick = () => {
+      onBookmarks(movie, isBookmark);
+    }
+
     return(
-        <Switch>
-            <Route path="/movies">
-                <div className="movies-card">
-                    <div className="movies-card__info">
-                        <p className="movies-card__title">33 слова о дизайне</p>
-                        <button type="button" className="movies-card__button" />
-                    </div>
-                    <p className="movies-card__time">1ч 42м</p>
-                    <img className="movies-card__image" src={Poster} alt='Постер'/>
-                </div>
-            </Route>
-
-            <Route path="/saved-movies">
-                <div className="movies-card">
-                    <div className="movies-card__info">
-                        <p className="movies-card__title">33 слова о дизайне</p>
-                        <button type="button" className="movies-card__button_type_delete" />
-                    </div>
-                    <p className="movies-card__time">1ч 42м</p>
-                    <img className="movies-card__image" src={Poster} alt='Постер'/>
-                </div>
-            </Route>
-        </Switch>
+        <div className="movies-card">
+          <div className="movies-card__info">
+              <p className="movies-card__title">{movie.nameRU}</p>
+              <button type="button" className={movieBtnClassName} onClick={handleBookmarkClick}/>
+          </div>
+          <p className="movies-card__time">{duration}</p>
+          <a href={movie.trailer} target="_blank" rel="noopener noreferrer">
+            <img className="movies-card__image" src={movie.image} alt={movie.nameRU} />
+          </a>
+        </div>
     )
 }
 

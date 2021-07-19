@@ -1,22 +1,66 @@
+.register {
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.register__header_container {
+  display: flex;
+  max-height: 32px;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 21px 70px 0 0;
+}
+
+.register__header_container-auth {
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 396px;
+  margin: 0 auto;
+  padding: 70px 0 40px 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-height: 217px;
+}
+
+.register__header_logo {
+  display: flex;
+  height: 36px;
+  width: 36px;
+  padding: 18px 0 0 70px;
+}
+
+.register__header_logo-auth {
+  padding-left: 0;
+}
+
+.register__header_text {
+  margin: 40px 0 0 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+
 .register__container {
   display: flex;
   flex-direction: column;
   max-width: 396px;
   margin: 0 auto;
 }
-  
+
 .register__heading {
   font-size: 24px;
   font-weight: 500;
   margin: 74px 0 123px 0;
 }
-  
+
 .register__form-label {
   font-size: 10px;
   color: #a0a0a0;
   margin: 20px 0 10px 0;
 }
-  
+
 .register__form-field {
   background-color: #F4F4F4;
   border: none;
@@ -26,6 +70,23 @@
   padding: 15px;
   box-sizing: border-box;
 }
+
+.register__form-error {
+  max-width: 396px;
+  height: 12px;
+  padding-bottom: 10px;
+
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+
+  color: #EE3465;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .register__form-button {
   display: block;
   width: 100%;
@@ -43,18 +104,22 @@
   opacity: 0.8;
   cursor: pointer;
 }
-  
+
+.register__form-button_disable {
+  background-color: #2F2F2F;
+}
+
 .register__info {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-  
+
 .register__info-text {
   color: #a0a0a0;
   font-size: 14px;
 }
- 
+
 .register__info-link {
   color: #3456f3;
   font-size: 14px;
@@ -83,5 +148,36 @@
 
   .register__info-link {
     font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .register__header_logo{
+    padding: 18px 0 0 30px;
+  }
+
+  .register__header_container{
+    margin: 21px 30px 0 0;
+  }
+
+  .register__header_container-auth{
+    margin: 162px 0 0 186px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .register__header_logo{
+    padding: 18px 0 0 14px;
+  }
+
+  .register__header_container{
+    margin: 21px 30px 0 0;
+  }
+
+  .register__header_container-auth{
+    margin: 56px 30px 0 30px;
+    padding: 0 0 80px 0;
+    justify-content: center;
+    align-items: center;
   }
 }
